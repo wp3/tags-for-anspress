@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-08-19 13:23-0400\n"
+"PO-Revision-Date: 2015-08-20 13:06-0400\n"
 "Language-Team: \n"
 "X-Generator: Poedit 1.8.4\n"
 "X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;"
@@ -105,7 +105,7 @@ msgstr "Catégories"
 
 #: tags-for-anspress.php:575
 msgid "Tagged"
-msgstr "Étiquetés"
+msgstr "Mots-clés"
 
 #: tags-for-anspress.php:634
 msgid "Questions"
