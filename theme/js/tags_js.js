@@ -177,7 +177,7 @@
 			var val = $(this).val().trim();
 			clearTimeout(window.tagtime);
 			if(e.keyCode != 9 && e.keyCode != 37 && e.keyCode != 38 && e.keyCode != 39 && e.keyCode != 40) { // Do nothing on Tab and arrows keys
-				if(e.keyCode == 13 || e.keyCode == 188 ) { // "Enter" or ","
+				if(e.keyCode == 13 ) { // "Enter"
 					clearTimeout(window.tagtime);
 					$(this).trigger('apAddNewTag');
 				} else {
