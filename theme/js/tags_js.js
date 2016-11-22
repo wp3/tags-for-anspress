@@ -19,12 +19,12 @@
 	    return str;
 	}
 
-	function apAddTag(str, container){
-		str = str.replace(/,/g, '');
-		str = str.trim();
-		str = apSanitizeTitle(str);
+	function apAddTag(str, slug, container){
+		slug = slug.replace(/,/g, '');
+		slug = slug.trim();
+		slug = apSanitizeTitle(slug);
 		
-		if( str.length > 0 ){
+		if( slug.length > 0 ){
 
 			var htmlTag = {
 				element : 'li',
@@ -45,7 +45,7 @@
 				var container = '#ap-tags-holder';
 				htmlTag.button.class = 'ap-tag-remove';
 				htmlTag.button.icon = 'apicon-x';
-				htmlTag.input = '<input type="hidden" name="tags[]" value="'+str+'" />';
+				htmlTag.input = '<input type="hidden" name="tags[]" value="'+slug+'" />';
 				htmlTag.accessibilityText = apTagsTranslation.deleteTag;
 				
 				var exist_el = false;
@@ -72,7 +72,7 @@
 				}, 250);
 			}
 			
-			var html = $('<'+htmlTag.element+' class="'+htmlTag.class+'" title="'+htmlTag.accessibilityText+'"><button role="button" class="'+htmlTag.button.class+'"><span class="'+htmlTag.itemValueClass+'">'+str+'</span><i class="'+htmlTag.button.icon+'"></i></button>'+htmlTag.input+'</'+htmlTag.element+'>');
+			var html = $('<'+htmlTag.element+' class="'+htmlTag.class+'" title="'+htmlTag.accessibilityText+'"><button role="button" class="'+htmlTag.button.class+'"><span class="'+htmlTag.itemValueClass+'" data-slug="'+slug+'">'+str+'</span><i class="'+htmlTag.button.icon+'"></i></button>'+htmlTag.input+'</'+htmlTag.element+'>');
 			html.appendTo(container).fadeIn(300);
 			
 		}
@@ -106,14 +106,14 @@
 				}
 						
 				if(data['items']){
-					$.each(data['items'], function(index, val) {
-						val = decodeURIComponent(val);
+					$.each(data['items'], function(slug, val) {
+						slug = decodeURIComponent(slug);
 						var holderItems = [];
 						$("#ap-tags-holder .ap-tag-item-value").each(function() {
 							holderItems.push($(this).text())
 						});
 						if ($.inArray(val, holderItems)<0) // Show items that was not already inside the holder list
-							apAddTag(val, '#ap-tags-suggestion');
+							apAddTag(val, slug, '#ap-tags-suggestion');
 					});
 				}
 				
@@ -130,7 +130,11 @@
 
 		$('#tags').on('apAddNewTag',function(e){
 			e.preventDefault();
-			apAddTag($(this).val().trim(','));
+			var slug = $(this).val().trim(',');
+			slug = slug.replace(/,/g, '');
+			slug = slug.trim();
+			slug = apSanitizeTitle(slug);
+			apAddTag($(this).val().trim(','), slug);
 			$(this).val('');
 		});
 
@@ -190,7 +194,7 @@
 		});
 		
 		$('#ap-tags-suggestion').delegate('.ap-tagssugg-item', 'click', function(e) {
-			apAddTag($(this).find('.ap-tag-item-value').text());
+			apAddTag($(this).find('.ap-tag-item-value').text(), $(this).find('.ap-tag-item-value').data('slug'));
 			$(this).remove();
 		});
 
