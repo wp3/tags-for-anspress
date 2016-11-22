@@ -473,7 +473,7 @@ class Tags_For_AnsPress
 				$tag_field .= '<ul id="ap-tags-holder" aria-describedby="ap-tags-list-title">';
 		foreach ( (array) $tag_val as $tag ) {
 			if( !empty( $tag->slug ) ){
-				$tag_field .= '<li class="ap-tagssugg-item"><button role="button" class="ap-tag-remove"><span class="sr-only"></span> <span class="ap-tag-item-value">'. $tag->slug .'</span><i class="apicon-x"></i></button><input type="hidden" name="tags[]" value="'. $tag->slug .'" /></li>';
+				$tag_field .= '<li class="ap-tagssugg-item"><button role="button" class="ap-tag-remove"><span class="sr-only"></span> <span class="ap-tag-item-value">'. $tag->name .'</span><i class="apicon-x"></i></button><input type="hidden" name="tags[]" value="'. $tag->slug .'" /></li>';
 			}
 		}
 				$tag_field .= '</ul>';
@@ -527,7 +527,7 @@ class Tags_For_AnsPress
 
 		$fields = $validate->get_sanitized_fields();
 		if ( isset( $fields['tags'] ) ) {
-			$tags = explode(',', $fields['tags'] );
+			$tags = explode(',', str_replace('-', ' ', $fields['tags']) );
 			wp_set_object_terms( $post_id, $tags, 'question_tag' );
 		}
 	}
@@ -668,7 +668,7 @@ class Tags_For_AnsPress
 		if ( $tags ) {
 			$items = array();
 			foreach ( $tags as $k => $t ) {
-				$items [ $k ] = $t->slug;
+				$items [ $t->slug ] = $t->name;
 			}
 
 			$result = array( 'status' => true, 'items' => $items );
