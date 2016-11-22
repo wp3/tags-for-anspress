@@ -527,7 +527,7 @@ class Tags_For_AnsPress
 
 		$fields = $validate->get_sanitized_fields();
 		if ( isset( $fields['tags'] ) ) {
-			$tags = explode(',', $fields['tags'] );
+			$tags = explode(',', str_replace('-', ' ', $fields['tags']) );
 			wp_set_object_terms( $post_id, $tags, 'question_tag' );
 		}
 	}
