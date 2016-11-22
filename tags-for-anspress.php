@@ -668,7 +668,7 @@ class Tags_For_AnsPress
 		if ( $tags ) {
 			$items = array();
 			foreach ( $tags as $k => $t ) {
-				$items [ $k ] = $t->slug;
+				$items [ $k ] = $t->name;
 			}
 
 			$result = array( 'status' => true, 'items' => $items );
